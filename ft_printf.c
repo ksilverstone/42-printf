@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgumusta <kgumusta@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: kgumusta <kgumusta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 10:42:49 by kgumusta          #+#    #+#             */
-/*   Updated: 2024/12/04 16:01:58 by kgumusta         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:52:11 by kgumusta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdarg.h>
 
-static int format_func(const char *format, va_list args)
+static int	format_func(const char *format, va_list args)
 {
-    int char_count;
+	int	char_count;
 
-    char_count = 0;
-    if (*format == 'c')
+	char_count = 0;
+	if (*format == 'c')
 		return (char_count += ft_putchar(va_arg(args, int)));
 	else if (*format == 's')
 		return (char_count += ft_putstr(va_arg(args, char *)));
@@ -36,31 +35,27 @@ static int format_func(const char *format, va_list args)
 		return (-1);
 }
 
-int ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
-	va_list args;
-	int 	char_count;
-	int 	tmp;
+	va_list	args;
+	int		char_count;
+	int		tmp;
 
-	if(!format)
+	if (!format)
 		return (-1);
 	va_start(args, format);
 	char_count = 0;
 	while (*format)
 	{
-		if(*format == '%' && *(++format))
-		{
+		if (*format == '%' && *(++format))
 			tmp = format_func(format, args);
-			if(tmp == -1)
-				return (-1);
-			char_count += tmp;
-		}
-		else if(*format != '%')
-		{
-			if(ft_putchar(*format) == -1)
-				return (-1);
-		}
+		else if (*format != '%')
+			tmp = ft_putchar(*format);
+		if (tmp == -1)
+			return (-1);
+		char_count += tmp;
 		format++;
 	}
-	return (va_end(args), char_count);
+	va_end(args);
+	return (char_count);
 }
