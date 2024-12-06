@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgumusta <kgumusta@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 10:22:54 by kgumusta          #+#    #+#             */
-/*   Updated: 2024/12/04 14:38:28 by kgumusta         ###   ########.fr       */
+/*   Created: 2024/12/04 14:26:33 by kgumusta          #+#    #+#             */
+/*   Updated: 2024/12/04 15:51:06 by kgumusta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-#define FT_PRINTF_H
+#include "ft_printf.h"
+#include <unistd.h>
 
-#include <stdarg.h>
+int	ft_putstr(char *str)
+{
+	size_t	count;
 
-int ft_printf(const char *format, ...);
-int	ft_putchar(char c);
-int	ft_putstr(char *s);
-int	ft_putnbr(int n);
-int ft_putnbr_u(unsigned int n);
-int	ft_puthex(unsigned int i, char x);
-int ft_putptr(void *p);
-
-
-
-#endif
+	if (!str)
+	{
+		if (write(1, "(null)", 6) == -1)
+			return (-1);
+		return (6);
+	}
+	count = 0;
+	while (*str)
+	{
+		if (ft_putchar(*str++) == -1)
+			return (-1);
+		count++;
+	}
+	return (count);
+}

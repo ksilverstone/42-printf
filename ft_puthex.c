@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgumusta <kgumusta@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 10:22:54 by kgumusta          #+#    #+#             */
+/*   Created: 2024/12/04 14:29:58 by kgumusta          #+#    #+#             */
 /*   Updated: 2024/12/04 14:38:28 by kgumusta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-#define FT_PRINTF_H
+#include "ft_printf.h"
 
-#include <stdarg.h>
+int	ft_puthex(unsigned int i, char x)
+{
+	int char_count;
 
-int ft_printf(const char *format, ...);
-int	ft_putchar(char c);
-int	ft_putstr(char *s);
-int	ft_putnbr(int n);
-int ft_putnbr_u(unsigned int n);
-int	ft_puthex(unsigned int i, char x);
-int ft_putptr(void *p);
-
-
-
-#endif
+	char_count = 0;
+	if (i >= 16)
+	{
+		char_count += ft_puthex(i / 16, x);
+	}
+	if (x == 'x')
+	{
+		if(ft_putchar("0123456789abcdef"[i % 16]) == -1)
+			return (-1);
+	}
+	else if (x == 'X')
+	{
+		if(ft_putchar("0123456789abcdef"[i % 16]) == -1)
+			return (-1);
+	}
+	return (++char_count);
+}

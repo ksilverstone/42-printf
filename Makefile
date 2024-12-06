@@ -1,9 +1,12 @@
 NAME = libftprintf.a
 FLAGS = -Wall -Wextra -Werror
 
-SRC = ft_printf.c \
-		ft_printffunc.c \
-		ft_printf_util.c
+SRC =	ft_printf.c \
+		ft_putstr.c \
+		ft_putnbr.c \
+		ft_puthex.c \
+		ft_putchar.c \
+		ft_putptr.c
 
 OBJ = $(SRC:.c=.o)
 
